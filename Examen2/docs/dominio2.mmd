@@ -1,0 +1,79 @@
+classDiagram
+    direction LR
+
+    class ExamenSangre {
+        <<Entidad raíz>>
+        -CodigoExamen codigo
+        -NombrePaciente paciente
+        -Costo costo
+        -GrupoSanguineo grupoSanguineo
+        +registrar(codigo, paciente, costo, grupo)$ ExamenSangre
+        +codigo() CodigoExamen
+        +paciente() NombrePaciente
+        +costo() Costo
+        +grupoSanguineo() GrupoSanguineo
+    }
+
+    class CodigoExamen {
+        <<Objeto de valor>>
+        -String valor
+        +de(String)$ CodigoExamen
+        +valor() String
+    }
+
+    class NombrePaciente {
+        <<Objeto de valor>>
+        -String valor
+        +de(String)$ NombrePaciente
+        +valor() String
+    }
+
+    class Costo {
+        <<Objeto de valor>>
+        -BigDecimal monto
+        +de(BigDecimal)$ Costo
+        +monto() BigDecimal
+    }
+
+    class GrupoSanguineo {
+        <<Objeto de valor>>
+        -TipoSangre tipo
+        -FactorRH factor
+        +simbolo() String
+    }
+
+    class TipoSangre {
+        <<enumeration>>
+        A
+        B
+        AB
+        O
+    }
+
+    class FactorRH {
+        <<enumeration>>
+        POSITIVO
+        NEGATIVO
+        +simbolo() String
+    }
+
+    class ReglaNegocioException {
+        <<Excepción de dominio>>
+    }
+
+    class ExamenDuplicadoException {
+        <<Excepción de dominio>>
+    }
+
+    ExamenSangre *-- "1" CodigoExamen : identidad
+    ExamenSangre *-- "1" NombrePaciente
+    ExamenSangre *-- "1" Costo
+    ExamenSangre *-- "1" GrupoSanguineo
+    GrupoSanguineo --> TipoSangre
+    GrupoSanguineo --> FactorRH
+    ReglaNegocioException <|-- ExamenDuplicadoException
+    CodigoExamen ..> ReglaNegocioException : formato XXX-000
+    NombrePaciente ..> ReglaNegocioException : no vacío, máx 100
+    Costo ..> ReglaNegocioException : mayor que 0
+
+    note for ExamenSangre "Reglas: inmutable. Identidad = código. Se crea solo con datos válidos. Unicidad del código: verificada en la capa de aplicación."

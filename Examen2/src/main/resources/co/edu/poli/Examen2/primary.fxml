@@ -15,11 +15,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!-- El controlador ya no se declara aqui (fx:controller): lo inyecta App con
+     FXMLLoader.setController(...) para poder pasarle los puertos de entrada. -->
 <VBox alignment="CENTER" maxWidth="520.0" prefWidth="520.0" spacing="16.0"
       style="-fx-background-color: #f4f6f9; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);"
       xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="co.edu.poli.Examen2.controlador.PrimaryController">
+      xmlns:fx="http://javafx.com/fxml/1">
 
    <padding>
       <Insets bottom="28.0" left="30.0" right="30.0" top="28.0" />
@@ -119,7 +120,7 @@
 
    <Separator />
 
-   <!-- Fila 1: Guardar y Limpiar -->
+   <!-- Botones de acción -->
    <HBox spacing="12.0" alignment="CENTER">
       <Button fx:id="btnGuardar"
               text="💾  Guardar"

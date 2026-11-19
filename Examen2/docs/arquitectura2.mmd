@@ -1,0 +1,80 @@
+flowchart LR
+    subgraph IN["ADAPTADORES DE ENTRADA (driving)"]
+        direction TB
+        APP["App<br/>raíz de composición"]
+        CTRL["PrimaryController<br/>JavaFX"]
+    end
+
+    subgraph PORTS_IN["PUERTOS DE ENTRADA"]
+        direction TB
+        P1(["RegistrarExamenUseCase"])
+        P2(["ListarExamenesUseCase"])
+        P3(["SerializarExamenesUseCase"])
+        P4(["DeserializarExamenesUseCase"])
+    end
+
+    subgraph CORE["NÚCLEO HEXAGONAL"]
+        direction TB
+        subgraph APPL["APLICACIÓN"]
+            direction TB
+            S1["RegistrarExamenService"]
+            S2["ListarExamenesService"]
+            S3["SerializarExamenesService"]
+            S4["DeserializarExamenesService"]
+        end
+        subgraph DOM["DOMINIO"]
+            direction TB
+            D1["ExamenSangre"]
+            D2["Objetos de valor<br/>CodigoExamen, NombrePaciente,<br/>Costo, GrupoSanguineo"]
+            D3["Excepciones de dominio"]
+        end
+    end
+
+    subgraph PORTS_OUT["PUERTOS DE SALIDA"]
+        direction TB
+        O1(["ExamenRepositorio"])
+        O2(["ExamenRespaldoPuerto"])
+    end
+
+    subgraph OUT["ADAPTADORES DE SALIDA (driven)"]
+        direction TB
+        A1["ExamenRepositorioMemoria"]
+        A2["ExamenRespaldoArchivoAdapter<br/>+ ExamenSerializableDto"]
+    end
+
+    CTRL --> P1
+    CTRL --> P2
+    CTRL --> P3
+    CTRL --> P4
+
+    S1 -.->|implementa| P1
+    S2 -.->|implementa| P2
+    S3 -.->|implementa| P3
+    S4 -.->|implementa| P4
+
+    S1 --> D1
+    S1 --> O1
+    S2 --> O1
+    S3 --> O1
+    S3 --> O2
+    S4 --> O1
+    S4 --> O2
+    D1 --> D2
+    D2 --> D3
+
+    A1 -.->|implementa| O1
+    A2 -.->|implementa| O2
+
+    APP -.->|crea e inyecta| S1
+    APP -.->|crea e inyecta| A1
+    APP -.->|crea e inyecta| A2
+    APP -.->|crea| CTRL
+
+    classDef dominio fill:#d5f5e3,stroke:#1e8449,color:#000
+    classDef aplicacion fill:#d6eaf8,stroke:#2874a6,color:#000
+    classDef puerto fill:#fcf3cf,stroke:#b7950b,color:#000
+    classDef adaptador fill:#f5eef8,stroke:#7d3c98,color:#000
+    class D1,D2,D3 dominio
+    class S1,S2,S3,S4 aplicacion
+    class P1,P2,P3,P4,O1,O2 puerto
+    class APP,CTRL,A1,A2 adaptador
