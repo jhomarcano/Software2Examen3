@@ -8,6 +8,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <junit.version>5.10.2</junit.version>
     </properties>
     <dependencies>
         <dependency>
@@ -20,6 +21,13 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
+        <!-- Pruebas unitarias: JUnit 5 (incluye API, params y engine) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -29,6 +37,16 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>11</release>
+                </configuration>
+            </plugin>
+            <!-- Surefire 3.x es necesario para ejecutar JUnit 5 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Las pruebas no usan JavaFX: se ejecutan en classpath y se evita el choque con module-info -->
+                    <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>
             <plugin>
