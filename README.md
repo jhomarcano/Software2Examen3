@@ -104,3 +104,20 @@ Las pruebas están en `src/test/java` y reflejan la estructura de paquetes del c
 Los adaptadores de archivo usan `@TempDir`, así que las pruebas no dejan archivos en el proyecto.
 No se prueban `App` ni `PrimaryController` porque dependen de JavaFX; toda la lógica relevante vive en el
 dominio y la aplicación, que sí están cubiertos.
+
+## Documentación y Artefactos (Wiki)
+
+Los entregables complementarios del proyecto se encuentran alojados en la [Wiki del repositorio](https://github.com/jhomarcano/Software2Examen3/wiki) y en la carpeta `Examen2/docs`:
+
+- **Actividad 1 (Diagnóstico inicial):** [actividad1.pdf](https://github.com/jhomarcano/Software2Examen3/blob/main/Examen2/docs/actividad1.pdf)
+- **Actividad 2 (Arquitectura Hexagonal):** Diagramas `dominio2` y `arquitectura2` en la Wiki.
+- **Actividad 3 (Patrones GoF):** [actividad3.pdf](https://github.com/jhomarcano/Software2Examen3/blob/main/Examen2/docs/actividad3.pdf) y diagrama `dominio3` en la Wiki.
+- **Actividad 4 (Calidad de código):** Evidencia de análisis estático con **SonarQube** en la Wiki.
+- **Actividad 5 (Sustentación):** Video `video5` enlazado en la Wiki.
+
+## Declaración del uso de Inteligencia Artificial
+
+Durante el desarrollo del proyecto se emplearon herramientas de IA como apoyo puntual en las siguientes actividades:
+
+- **Claude:** apoyo en la generación y refactorización del código en Java (estructura hexagonal, patrones GoF, comentarios JavaDoc y pruebas unitarias en JUnit 5).
+- **Gemini:** apoyo en la depuración y resolución de errores de configuración (Maven/JavaFX) y en la revisión de la redacción de los informes (`actividad1.pdf` y `actividad3.pdf`).
